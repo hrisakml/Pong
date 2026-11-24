@@ -21,7 +21,8 @@ add_executable(game
                 main.cpp
                 player.cpp
                 ball.cpp
-                menu.cpp)
+                menu.cpp
+                button.cpp)
 target_link_libraries(game PRIVATE SFML::Graphics SFML::Window SFML::System SFML::Audio)
 
 add_custom_command(TARGET game POST_BUILD

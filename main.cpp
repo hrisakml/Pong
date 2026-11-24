@@ -33,22 +33,23 @@ int main(){
             if (event->is<sf::Event::Closed>()){
                 window.close();
             }
-            menu.handleEvent(*event, state);
+            menu.handleEvent(*event, state, window);
         }
         debug.setString("p1y: " + std::to_string(player.getP1y()) +
                         "\np2y: " + std::to_string(player.getP2y()) + 
                         "\nball: " + std::to_string(ball.getPos().x) + ", " + std::to_string(ball.getPos().y));
         
-        if (state == State::Dual){
-            player.handleInput(winSize, dt);
-            player.update(winSize, dt);
+        if (state == State::Dual || state == State::Single){
+            player.handleInput(winSize, dt, state);
+            player.update(winSize, dt, state);
             ball.update(winSize, dt, player, state);
-            ball.checkCollision(winSize, player);
+            ball.checkCollision(winSize, player, state);
         }
+        menu.update(window, state);
 
         window.clear();
-        if (state == State::Dual){
-            player.draw(window);
+        if (state == State::Dual || state == State::Single){
+            player.draw(window, state);
             ball.draw(window);
         }
         menu.draw(window, state);
